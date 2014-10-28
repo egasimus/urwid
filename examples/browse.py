@@ -34,6 +34,7 @@ Features:
 import itertools
 import re
 import os
+import sys
 
 import urwid
 
@@ -184,7 +185,8 @@ class DirectoryNode(urwid.ParentNode):
                     dirs.append(a)
                 else:
                     files.append(a)
-        except OSError, e:
+        except OSError:
+            e = sys.exc_info()[1]
             depth = self.get_depth() + 1
             self._children[None] = ErrorNode(self, parent=self, key=None,
                                              depth=depth)
@@ -274,7 +276,7 @@ class DirectoryBrowser:
 
         # on exit, write the flagged filenames to the console
         names = [escape_filename_sh(x) for x in get_flagged_names()]
-        print " ".join(names)
+        print(" ".join(names))
 
     def unhandled_input(self, k):
         # update display of focus directory

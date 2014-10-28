@@ -27,6 +27,10 @@ Features:
 - custom wrap mode "numeric" for wrapping numbers to right and bottom
 """
 
+import sys
+if sys.version > '3':
+    long = int
+
 import urwid
 
 class FibonacciWalker(urwid.ListWalker):
@@ -35,7 +39,7 @@ class FibonacciWalker(urwid.ListWalker):
     positions returned are (value at position-1, value at position) tuples.
     """
     def __init__(self):
-        self.focus = (0L,1L)
+        self.focus = (long(0), long(1))
         self.numeric_layout = NumericLayout()
 
     def _get_at_pos(self, pos):
